@@ -17,4 +17,4 @@ A simple blog web application built using Node.js, Express, and EJS.
 ## How to Run
 ```bash
 npm install
-npm start
+node index.js
