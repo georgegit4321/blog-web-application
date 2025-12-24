@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles/view_blog_page_style.css">
+    <style>
+        .blog-content{
+                white-space: pre-line;
+                overflow-wrap: anywhere;
+            }
+    </style>
+</head>
+<body>
+    <div class="article">
+        <h1><%= heading %></h1>
+        <h2><%= sub %></h2>
+
+        <p class="blog-content"><%= content %></p>
+
+        <div class="actions">
+            <button onclick="window.location.href='/'">
+                go back home
+            </button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles/edit_page_style.css">
+</head>
+<body>
+    <script>
+    const array = <%- JSON.stringify(blogs) %>;
+    </script>
+
+    <script>
+        function checkHeading() {
+            
+            const headingInput = document.querySelector('input[name="heading"]').value.trim().toLowerCase();
+            
+            for (let index = 0; index < array.length; index++) {
+                const element = array[index];
+                if(element.heading.trim().toLowerCase()==headingInput){
+                    alert("A blog with this heading already exists!");
+                    //window.location.href = "/";
+                    return false; // stop form submission
+                }
+            }
+            return true; // allow submit
+        }
+    </script>
+
+    <form action="/save/<%= obj.id %>" method="post" onsubmit="return checkHeading()">
+        <label>heading</label>
+            <input type="text" name="heading" value="<%= obj.heading %>">
+
+        <label>subheading</label>
+            <input type="text" name="sub" value="<%= obj.sub %>">
+
+        <label>content</label>
+            <textarea name="content" cols="50" rows="40"><%= obj.content %></textarea>
+
+        <div class="action-bar">
+            <button type="button" class="secondary" onclick="window.location.href='/'">
+                go back home
+            </button>
+
+            <input type="submit" value="save">
+        </div>
+    </form>
+</body>
+</html>

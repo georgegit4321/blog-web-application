@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+    <script>
+    const array = <%- JSON.stringify(blogs) %>;
+    </script>
+
+    <script>
+        function checkHeading() {
+
+            const headingInput = document.querySelector('input[name="heading"]').value.trim().toLowerCase();
+            
+            for (let index = 0; index < array.length; index++) {
+                const element = array[index];
+                if(element.heading.trim().toLowerCase()==headingInput){
+                    alert("A blog with this heading already exists!");
+                    window.location.href = "/";
+                    return false; // stop form submission
+                }
+            }
+            return true; // allow submit
+        }
+    </script>
+    <h1>BLOG CREATION</h1>
+    <section>
+        <form action="/submit" method="post" onsubmit="return checkHeading()">
+            heading : <input type="text" name="heading"><br>
+            subheading: <input type="text" name="sub"><br>
+            content: <br> <textarea name="content" cols="50" rows="25" ></textarea><br>
+            <input type="submit" value="create blog!"><br>
+        </form>
+    </section>
+
+    <h1>BLOGS</h1>
+    <section>
+        <% if(locals.blogs){ %>
+            <% for (let index = 0; index < blogs.length; index++) {%>
+                <%const element = blogs[index].heading;%>
+                <%const id = blogs[index].id;%>
+                <div class="blog_row">
+                    <a class="left_links" href="/blogs/<%= id %>"><%= element %></a>
+
+                    <div class="actions">
+                        <a href="/blogs/edit/<%= id %>" class="edit">edit</a>
+                        <a href="/blogs/delete/<%= id %>" class="delete" onclick="return confirm('Are you sure you want to delete this blog?')">delete</a>
+                    </div>
+                </div>
+
+            <% } %>
+        <% } %>
+    </section>
+    <% if(locals.message){ %>
+        <script>alert("<%= message%>");</script>
+    <% } %>
+</body>
+</html>
